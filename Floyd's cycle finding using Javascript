@@ -1,0 +1,39 @@
+//Floyd's Cycle Finding Algorithem
+class Node
+        {
+            constructor(d)
+            {
+                this.data = d;
+                this.next = null;
+            }
+        }
+        let Head = null;
+        function detectLoop(head) {
+            let slowPointer = Head;
+            let fastPointer = Head;
+            while (slowPointer != null && fastPointer != null && fastPointer.next != null) {
+                slowPointer = slowPointer.next;
+                fastPointer = fastPointer.next.next;
+                if (slowPointer == fastPointer)
+                    return 1;
+            }
+            return 0;
+        }
+        Head = new Node(100);
+        Head.next = new Node(200);
+        Head.next.next = new Node(300);
+        Head.next.next.next = new Node(400);
+        Head.next.next.next.next = new Node(500);
+        Head.next.next.next.next.next = new Node(600);
+        Head.next.next.next.next.next.next = new Node(500);
+        Head.next.next.next.next.next.next.next = new Node(600);
+        let tep = Head;
+        while (tep.next != null)
+            tep = tep.next;
+        tep.next = Head;
+        if (detectLoop(Head))
+            console.log("Loop Exists in the Linked List:");
+        else
+            console.log("Loop does not Exists in the Linked List:" );
+          //  Output-
+          //  Loop Exists in the Linked List:
