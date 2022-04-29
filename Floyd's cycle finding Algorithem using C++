@@ -1,0 +1,55 @@
+//Floyd's Cycle Detection Algorithem:
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+struct Node
+{
+    int DATA;
+    Node* NEXT;
+};
+void push(Node* &headRef, int DATA)
+{
+    Node* newNode = new Node;
+    newNode->DATA = DATA;
+    newNode->NEXT = headRef;
+    headRef = newNode;
+}
+bool detectCycle(Node* Head)
+{
+    Node* curr = Head;
+    unordered_set<Node*> set;
+    while (curr)
+    {
+        if (set.find(curr) != set.end()) 
+        {
+            return true;
+        }
+        set.insert(curr);
+        curr = curr->NEXT;
+    }
+    return false;
+}
+int main()
+{
+    int Keys[] = { 1, 2, 3, 4, 5,6,7,8};
+    int n = sizeof(Keys) / sizeof(Keys[0]);
+    Node* Head = nullptr;
+    for (int i = n - 1; i >= 0; i--) 
+    {
+        push(Head, Keys[i]);
+    }
+    Head->NEXT->NEXT->NEXT->NEXT->NEXT = Head->NEXT->NEXT;
+    cout<<"Here is a Floyd's Cycle Detection Algorithem:"<<endl;
+    if (detectCycle(Head)) 
+    {
+        cout << "Cycle Found";
+    }
+    else
+    {
+        cout << "No Cycle Found";
+    }
+    return 0;
+}
+//Output-
+//Here is a Floyd's Cycle Detection Algorithem:
+//Cycle Found
